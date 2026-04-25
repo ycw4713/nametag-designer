@@ -29,6 +29,8 @@ let appState = {
   showPhoto: false,          // 照片预留区
   fontSize: 250,             // 姓名字体大小
   namePosition: 50,          // 姓名位置百分比
+  classSize: 40,             // 班级字体大小
+  classPosition: 30,         // 班级位置百分比
   layout: 1                  // 每页数量
 };
 

@@ -10,10 +10,16 @@ function initSliders() {
   const fontSizeValue = document.getElementById('font-size-value');
   const positionSlider = document.getElementById('name-position-input');
   const positionValue = document.getElementById('name-position-value');
+  const classSizeSlider = document.getElementById('class-size-input');
+  const classSizeValue = document.getElementById('class-size-value');
+  const classPositionSlider = document.getElementById('class-position-input');
+  const classPositionValue = document.getElementById('class-position-value');
 
   // 初始化滑块轨道填充
   updateSliderTrack(fontSizeSlider);
   updateSliderTrack(positionSlider);
+  updateSliderTrack(classSizeSlider);
+  updateSliderTrack(classPositionSlider);
 
   // 字体大小滑块
   fontSizeSlider.addEventListener('input', () => {
@@ -29,6 +35,22 @@ function initSliders() {
     positionValue.textContent = pos;
     updateSliderTrack(positionSlider);
     StateModule.setState({ namePosition: pos });
+  });
+
+  // 班级大小滑块
+  classSizeSlider.addEventListener('input', () => {
+    const size = parseInt(classSizeSlider.value);
+    classSizeValue.textContent = size;
+    updateSliderTrack(classSizeSlider);
+    StateModule.setState({ classSize: size });
+  });
+
+  // 班级位置滑块
+  classPositionSlider.addEventListener('input', () => {
+    const pos = parseInt(classPositionSlider.value);
+    classPositionValue.textContent = pos;
+    updateSliderTrack(classPositionSlider);
+    StateModule.setState({ classPosition: pos });
   });
 }
 
@@ -50,6 +72,8 @@ function updateSliderTrack(slider) {
 function updateSliders(state) {
   const fontSizeSlider = document.getElementById('font-size-input');
   const positionSlider = document.getElementById('name-position-input');
+  const classSizeSlider = document.getElementById('class-size-input');
+  const classPositionSlider = document.getElementById('class-position-input');
 
   fontSizeSlider.value = state.fontSize;
   document.getElementById('font-size-value').textContent = state.fontSize;
@@ -58,6 +82,14 @@ function updateSliders(state) {
   positionSlider.value = state.namePosition;
   document.getElementById('name-position-value').textContent = state.namePosition;
   updateSliderTrack(positionSlider);
+
+  classSizeSlider.value = state.classSize;
+  document.getElementById('class-size-value').textContent = state.classSize;
+  updateSliderTrack(classSizeSlider);
+
+  classPositionSlider.value = state.classPosition;
+  document.getElementById('class-position-value').textContent = state.classPosition;
+  updateSliderTrack(classPositionSlider);
 }
 
 // 导出

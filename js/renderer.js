@@ -69,7 +69,7 @@ function renderNameTag(ctx, bounds, state) {
   const scaledState = {
     ...state,
     fontSize: Math.round(state.fontSize * scale),
-    classSize: Math.round((state.fontSize * 0.15) * scale)
+    classSize: Math.round(state.classSize * scale)
   };
 
   // 绘制背景
@@ -91,7 +91,7 @@ function renderNameTag(ctx, bounds, state) {
 
   // 绘制班级（如果有）
   if (state.className) {
-    BaseDraw.drawClass(ctx, bounds, state.className, scaledState.classSize, state.namePosition, 'Ma Shan Zheng');
+    BaseDraw.drawClass(ctx, bounds, state.className, scaledState.classSize, state.classPosition, 'Ma Shan Zheng');
   }
 
   // 绘制寄语（如果有）

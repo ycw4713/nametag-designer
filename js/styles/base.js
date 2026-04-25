@@ -50,12 +50,11 @@ function drawName(ctx, bounds, name, fontSize, namePosition, fontFamily = 'Ma Sh
 /**
  * 绘制班级（镂空效果）
  */
-function drawClass(ctx, bounds, className, fontSize, namePosition, fontFamily = 'Ma Shan Zheng') {
+function drawClass(ctx, bounds, className, fontSize, classPosition, fontFamily = 'Ma Shan Zheng') {
   if (!className) return;
 
   const centerX = bounds.x + bounds.width / 2;
-  const nameY = bounds.y + bounds.height * (namePosition / 100);
-  const centerY = nameY + fontSize + 30;
+  const centerY = bounds.y + bounds.height * (classPosition / 100);
 
   ctx.font = `bold ${fontSize}px "${fontFamily}"`;
   ctx.textAlign = 'center';
