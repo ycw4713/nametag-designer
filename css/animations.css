@@ -1,0 +1,92 @@
+/* css/animations.css - 动效定义 */
+
+/* ===== 卡片悬停效果 ===== */
+.panel-card {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.panel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== 按钮bounce效果 ===== */
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.generate-btn.success {
+  animation: bounce 300ms ease-out;
+}
+
+/* ===== 粒子散开效果 ===== */
+@keyframes particle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0);
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: particle 800ms ease-out forwards;
+}
+
+/* ===== 装饰飘入效果 ===== */
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translate(var(--start-x), var(--start-y));
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+/* ===== 过场淡出 ===== */
+@keyframes fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+.canvas-transitioning {
+  animation: fade-out 200ms ease-out forwards;
+}
+
+/* ===== 进度条 ===== */
+@keyframes progress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.progress-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-primary-light);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--color-primary);
+  animation: progress var(--duration) ease-out forwards;
+}
+
+/* ===== 减少动效模式 ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

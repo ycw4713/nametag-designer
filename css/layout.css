@@ -1,0 +1,90 @@
+/* css/layout.css - 布局结构 */
+
+/* 页面主体 */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 头部 */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--color-bg-card);
+  border-bottom: 2px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-header h1 {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* 主内容区 */
+.main-content {
+  display: flex;
+  flex: 1;
+  padding: var(--spacing-md);
+  gap: var(--spacing-lg);
+  height: calc(100vh - 56px);
+  overflow: hidden;
+}
+
+/* 左侧控制面板 */
+.control-panel {
+  width: var(--panel-width);
+  flex-shrink: 0;
+  background: var(--color-bg-panel);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* 右侧预览区域 */
+.preview-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-wrapper {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-sm);
+}
+
+#nametag-canvas {
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.preview-hint {
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}

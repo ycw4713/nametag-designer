@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成长姓名牌生成器</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <!-- jsPDF Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="page-header">
+      <h1>成长姓名牌生成器</h1>
+    </header>
+
+    <main class="main-content">
+      <!-- 左侧控制面板 -->
+      <aside class="control-panel">
+        <!-- 年龄段选择 -->
+        <section class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-label panel-card-label--age">年龄</span>
+            <span class="panel-card-title">选择年龄段</span>
+          </div>
+          <div class="age-selector"></div>
+        </section>
+
+        <!-- 主题选择 -->
+        <section class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-label panel-card-label--theme">主题</span>
+            <span class="panel-card-title">选择主题风格</span>
+          </div>
+          <div class="theme-selector"></div>
+        </section>
+
+        <!-- 内容输入 -->
+        <section class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-label panel-card-label--content">内容</span>
+            <span class="panel-card-title">输入信息</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="name-input">姓名</label>
+            <input class="input-field" type="text" id="name-input" placeholder="请输入姓名" maxlength="10">
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="class-input">班级</label>
+            <input class="input-field" type="text" id="class-input" placeholder="如：大一班" maxlength="15">
+          </div>
+          <div class="input-group" style="display: none;">
+            <label class="input-label" for="motto-input">寄语</label>
+            <input class="input-field" type="text" id="motto-input" placeholder="座右铭或寄语" maxlength="20">
+          </div>
+          <div class="input-group">
+            <label style="display: flex; align-items: center; gap: var(--spacing-sm); cursor: pointer;">
+              <input type="checkbox" id="show-photo" style="accent-color: var(--color-primary);">
+              <span class="input-label" style="margin-bottom: 0;">照片预留区域</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- 样式调整 -->
+        <section class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-label panel-card-label--style">样式</span>
+            <span class="panel-card-title">调整样式</span>
+          </div>
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>姓名大小</span>
+              <span class="slider-value"><span id="font-size-value">250</span>px</span>
+            </div>
+            <input class="slider-input" type="range" id="font-size-input" min="200" max="400" value="250" step="10">
+          </div>
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>姓名位置</span>
+              <span class="slider-value"><span id="name-position-value">50</span>%</span>
+            </div>
+            <input class="slider-input" type="range" id="name-position-input" min="30" max="70" value="50" step="5">
+          </div>
+          <button class="generate-btn" id="generate-btn">
+            <span class="generate-btn-icon">✨</span>
+            <span>生成姓名牌</span>
+          </button>
+        </section>
+
+        <!-- 导出 -->
+        <section class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-label panel-card-label--export">导出</span>
+            <span class="panel-card-title">保存或打印</span>
+          </div>
+          <div class="export-buttons">
+            <button class="export-btn export-btn--png" id="export-png">
+              <span class="export-btn-icon">📷</span>
+              <span>PNG</span>
+            </button>
+            <button class="export-btn export-btn--pdf" id="export-pdf">
+              <span class="export-btn-icon">📄</span>
+              <span>PDF</span>
+            </button>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 右侧预览区域 -->
+      <section class="preview-area">
+        <div class="preview-container">
+          <div class="canvas-wrapper">
+            <canvas id="nametag-canvas"></canvas>
+          </div>
+          <p class="preview-hint">输入姓名后自动生成预览</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="js/state.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/styles/base.js"></script>
+  <script src="js/styles/decorations.js"></script>
+  <script src="js/themes/animals.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/ui/age-selector.js"></script>
+  <script src="js/ui/theme-selector.js"></script>
+  <script src="js/ui/content-input.js"></script>
+  <script src="js/ui/sliders.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

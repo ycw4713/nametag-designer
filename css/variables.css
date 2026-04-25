@@ -1,0 +1,76 @@
+/* css/variables.css - 暖橙系配色系统 */
+
+:root {
+  /* 主色调 */
+  --color-primary: #ff9800;
+  --color-primary-light: #ffcc80;
+  --color-primary-lighter: #ffe0b2;
+  --color-primary-dark: #f57c00;
+
+  /* 辅助色 */
+  --color-secondary: #ffb74d;
+  --color-accent: #4fc3f7;
+  --color-accent-alt: #81c784;
+
+  /* 背景 */
+  --color-bg-page: #fff8f0;
+  --color-bg-card: #ffffff;
+  --color-bg-panel: linear-gradient(180deg, #fff3e0 0%, #fff8f0 100%);
+
+  /* 文字 */
+  --color-text-primary: #4a3f35;
+  --color-text-secondary: #8b7355;
+  --color-text-muted: #a1887f;
+  --color-text-placeholder: #d7ccc8;
+
+  /* 边框 */
+  --color-border: #ffe0b2;
+  --color-border-focus: #ff9800;
+
+  /* 卡片标签色 */
+  --color-label-age: #ff6b6b;
+  --color-label-theme: #ffca28;
+  --color-label-content: #4fc3f7;
+  --color-label-style: #81c784;
+  --color-label-export: #ff9800;
+
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 50%;
+
+  /* 字体 */
+  --font-family-base: 'Noto Sans SC', sans-serif;
+  --font-family-cute: 'Ma Shan Zheng', cursive;
+  --font-family-fun: 'ZCOOL KuaiLe', cursive;
+
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+
+  /* 阴影 */
+  --shadow-sm: 0 2px 4px rgba(255, 152, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(255, 152, 0, 0.15);
+  --shadow-lg: 0 8px 24px rgba(255, 152, 0, 0.2);
+  --shadow-card: 0 2px 8px rgba(255, 152, 0, 0.12);
+
+  /* 过渡 */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 250ms ease-out;
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 面板宽度 */
+  --panel-width: 260px;
+}
