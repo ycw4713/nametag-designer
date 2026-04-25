@@ -40,6 +40,10 @@ function initThemeSelector() {
   container.querySelectorAll('.theme-btn:not(.disabled)').forEach(btn => {
     btn.addEventListener('click', () => {
       const themeId = btn.dataset.theme;
+
+      // 触发装饰飘入动效
+      triggerThemeTransition(themeId);
+
       StateModule.setTheme(themeId);
       updateThemeSelection(themeId);
     });
@@ -47,11 +51,85 @@ function initThemeSelector() {
 }
 
 /**
+ * 触发主题切换装饰飘入动效
+ */
+function triggerThemeTransition(themeId) {
+  // 检查是否为高中模式（动效克制）
+  const state = StateModule.getState();
+  if (state.ageGroup === 'high') return;
+
+  // 获取装饰数量
+  const decorations = ThemeManager.getDecorations(themeId, state.density);
+
+  // 创建装饰飘入动画层
+  const canvasWrapper = document.querySelector('.canvas-wrapper');
+  let decorationsLayer = canvasWrapper.querySelector('.canvas-decorations');
+
+  if (!decorationsLayer) {
+    decorationsLayer = document.createElement('div');
+    decorationsLayer.className = 'canvas-decorations';
+    canvasWrapper.appendChild(decorationsLayer);
+  }
+
+  // 清空并添加新装饰元素
+  decorationsLayer.innerHTML = '';
+
+  decorations.forEach((dec, index) => {
+    const item = document.createElement('div');
+    item.className = 'canvas-decoration-item';
+
+    // 计算飘入方向（从边缘到中心）
+    const centerX = 0.5;
+    const centerY = 0.5;
+    const dx = dec.x - centerX;
+    const dy = dec.y - centerY;
+    const startX = dx > 0 ? 50 : -50;
+    const startY = dy > 0 ? 50 : -50;
+
+    item.style.cssText = `
+      left: ${dec.x * 100}%;
+      top: ${dec.y * 100}%;
+      --start-x: ${startX}px;
+      --start-y: ${startY}px;
+      --delay: ${index * 60}ms;
+      font-size: 20px;
+      opacity: 0;
+    `;
+
+    // 获取主题图标
+    const theme = THEMES.find(t => t.id === themeId);
+    item.textContent = theme ? theme.icon : '✨';
+
+    decorationsLayer.appendChild(item);
+  });
+
+  // 动画结束后清理
+  setTimeout(() => {
+    if (decorationsLayer) {
+      decorationsLayer.style.opacity = '0';
+      setTimeout(() => {
+        if (decorationsLayer && decorationsLayer.parentNode) {
+          decorationsLayer.remove();
+        }
+      }, 250);
+    }
+  }, 600);
+}
+
+/**
  * 更新选中状态
  */
 function updateThemeSelection(themeId) {
   document.querySelectorAll('.theme-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.theme === themeId);
+    const isActive = btn.dataset.theme === themeId;
+    btn.classList.toggle('active', isActive);
+
+    // 触发按钮弹跳动效
+    if (isActive) {
+      btn.style.animation = 'none';
+      void btn.offsetHeight;
+      btn.style.animation = '';
+    }
   });
 }
 

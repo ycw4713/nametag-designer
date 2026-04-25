@@ -1,85 +1,439 @@
 /* css/animations.css - 动效定义 */
 
+/* ===== Easing 函数库 ===== */
+:root {
+  /* 入场/弹出 - 轻微过冲 */
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 位移/滑动 - Material 标准 */
+  --ease-slide: cubic-bezier(0.4, 0, 0.2, 1);
+  /* 淡入淡出 */
+  --ease-fade: ease-out;
+
+  /* 动画时长标准 */
+  --duration-micro: 150ms;    /* 微交互 */
+  --duration-normal: 250ms;   /* 标准交互 */
+  --duration-transition: 400ms; /* 过场动画 */
+  --duration-celebrate: 1000ms; /* 庆祝动效 */
+
+  /* 高中模式动效缩放 */
+  --animation-scale: 1;
+}
+
+/* ===== 高中年龄段动效克制 ===== */
+.age-group-high {
+  --animation-scale: 0.5;
+  --ease-pop: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* ===== 卡片悬停效果 ===== */
 .panel-card {
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: transform calc(var(--duration-micro) * var(--animation-scale)) var(--ease-slide),
+              box-shadow calc(var(--duration-micro) * var(--animation-scale)) var(--ease-fade);
 }
 
 .panel-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 16px rgba(255, 152, 0, 0.18);
+}
+
+/* ===== 年龄段按钮动效 ===== */
+.age-btn {
+  transition: all calc(var(--duration-micro) * var(--animation-scale)) var(--ease-slide);
+}
+
+.age-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.age-btn.active {
+  animation: btn-pop calc(var(--duration-normal) * var(--animation-scale)) var(--ease-pop);
+}
+
+@keyframes btn-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ===== 主题按钮动效 ===== */
+.theme-btn {
+  transition: all calc(var(--duration-micro) * var(--animation-scale)) var(--ease-slide);
+}
+
+.theme-btn:hover {
+  transform: scale(1.05);
+}
+
+.theme-btn.active {
+  animation: theme-pop calc(var(--duration-normal) * var(--animation-scale)) var(--ease-pop);
+}
+
+@keyframes theme-pop {
+  0% { transform: scale(1); }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 /* ===== 按钮bounce效果 ===== */
 @keyframes bounce {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  30% { transform: scale(0.95); }
+  60% { transform: scale(1.05); }
+  80% { transform: scale(1.02); }
 }
 
 .generate-btn.success {
-  animation: bounce 300ms ease-out;
+  animation: bounce calc(var(--duration-normal) * var(--animation-scale)) var(--ease-pop);
 }
 
 /* ===== 粒子散开效果 ===== */
 @keyframes particle {
   0% {
     opacity: 1;
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1) rotate(0deg);
   }
   100% {
     opacity: 0;
-    transform: translate(var(--tx), var(--ty)) scale(0);
+    transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(var(--rotate));
   }
 }
 
 .particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
+  position: fixed;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--color-primary);
-  animation: particle 800ms ease-out forwards;
+  pointer-events: none;
+  animation: particle calc(var(--duration-celebrate) * var(--animation-scale)) var(--ease-slide) forwards;
+  z-index: 1000;
+}
+
+.particle.particle--secondary {
+  background: var(--color-secondary);
+}
+
+.particle.particle--accent {
+  background: var(--color-accent);
 }
 
 /* ===== 装饰飘入效果 ===== */
 @keyframes float-in {
   0% {
     opacity: 0;
-    transform: translate(var(--start-x), var(--start-y));
+    transform: translate(var(--start-x), var(--start-y)) scale(0.8);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translate(calc(var(--start-x) * -0.1), calc(var(--start-y) * -0.1)) scale(1.05);
   }
   100% {
     opacity: 1;
-    transform: translate(0, 0);
+    transform: translate(0, 0) scale(1);
   }
 }
 
-/* ===== 过场淡出 ===== */
-@keyframes fade-out {
-  0% { opacity: 1; }
-  100% { opacity: 0.3; }
+/* Canvas 装饰动画容器 */
+.canvas-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.canvas-decoration-item {
+  position: absolute;
+  animation: float-in calc(var(--duration-transition) * var(--animation-scale)) var(--ease-pop) forwards;
+  animation-delay: var(--delay);
+}
+
+/* ===== Canvas 过场动画 ===== */
+@keyframes canvas-refresh {
+  0% { opacity: 1; transform: scale(1); }
+  30% { opacity: 0.6; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 .canvas-transitioning {
-  animation: fade-out 200ms ease-out forwards;
+  animation: canvas-refresh calc(var(--duration-transition) * var(--animation-scale)) var(--ease-slide);
 }
 
-/* ===== 进度条 ===== */
-@keyframes progress {
-  0% { width: 0%; }
-  100% { width: 100%; }
+/* ===== 滑块增强效果 ===== */
+.slider-input {
+  --track-fill: 0%;
+  transition: all var(--duration-micro) var(--ease-fade);
 }
 
-.progress-bar {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--color-primary-light);
-  overflow: hidden;
+/* 滑块轨道填充效果 */
+.slider-input::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) var(--track-fill),
+    var(--color-border) var(--track-fill),
+    var(--color-border) 100%
+  );
 }
 
-.progress-bar-fill {
-  height: 100%;
+.slider-input::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) var(--track-fill),
+    var(--color-border) var(--track-fill),
+    var(--color-border) 100%
+  );
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
   background: var(--color-primary);
-  animation: progress var(--duration) ease-out forwards;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.3);
+  border: 3px solid var(--color-bg-card);
+  transition: transform calc(var(--duration-micro) * var(--animation-scale)) var(--ease-pop),
+              box-shadow calc(var(--duration-micro) * var(--animation-scale)) var(--ease-fade);
+  margin-top: -7px;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+}
+
+.slider-input::-webkit-slider-thumb:active {
+  transform: scale(1.3);
+  box-shadow: 0 6px 14px rgba(255, 152, 0, 0.5);
+}
+
+.slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.3);
+  border: 3px solid var(--color-bg-card);
+  transition: transform calc(var(--duration-micro) * var(--animation-scale)) var(--ease-pop);
+}
+
+/* ===== 输入框动效 ===== */
+.input-field {
+  transition: border-color var(--duration-micro) var(--ease-fade),
+              box-shadow var(--duration-micro) var(--ease-fade),
+              transform var(--duration-micro) var(--ease-slide);
+}
+
+.input-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.2), 0 2px 8px rgba(255, 152, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ===== 导出进度动画 ===== */
+.export-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 248, 240, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-fade);
+}
+
+.export-overlay.active {
+  opacity: 1;
+}
+
+.export-progress-container {
+  width: 300px;
+  padding: var(--spacing-xl);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.export-progress-title {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-lg);
+  font-weight: 500;
+}
+
+.export-progress-bar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.export-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-slide);
+}
+
+.export-progress-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ===== 完成徽章动画 ===== */
+@keyframes badge-pop {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.4); }
+  50% { box-shadow: 0 0 20px 10px rgba(255, 152, 0, 0.2); }
+}
+
+.export-complete-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-bg-card);
+  font-size: 28px;
+  animation: badge-pop calc(var(--duration-normal) * var(--animation-scale)) var(--ease-pop) forwards,
+             badge-glow 2s var(--ease-fade) infinite;
+  animation-delay: 0s, calc(var(--duration-normal) * var(--animation-scale));
+}
+
+.export-complete-text {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  margin-top: var(--spacing-md);
+  font-weight: 500;
+}
+
+/* ===== 面板滑入效果 ===== */
+@keyframes panel-slide-in {
+  0% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.panel-card.refreshing {
+  animation: panel-slide-in calc(var(--duration-transition) * var(--animation-scale)) var(--ease-pop);
+}
+
+/* ===== 提示气泡动画 ===== */
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.preview-hint {
+  animation: hint-float 3s var(--ease-slide) infinite;
+}
+
+/* 空状态提示 */
+.preview-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  padding: var(--spacing-xl);
+}
+
+.preview-empty-icon {
+  font-size: 48px;
+  opacity: 0.6;
+  margin-bottom: var(--spacing-md);
+}
+
+.preview-empty-text {
+  font-size: var(--font-size-sm);
+}
+
+/* ===== 错误提示动画 ===== */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.input-field.error {
+  border-color: #ff6b6b;
+  animation: shake calc(var(--duration-normal) * var(--animation-scale)) var(--ease-fade);
+}
+
+.error-tooltip {
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  font-size: var(--font-size-xs);
+  color: #ff6b6b;
+  opacity: 0;
+  transition: opacity var(--duration-micro) var(--ease-fade);
+}
+
+.input-group.has-error .error-tooltip {
+  opacity: 1;
+}
+
+/* ===== 成功反馈微动效 ===== */
+@keyframes success-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(129, 199, 132, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(129, 199, 132, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(129, 199, 132, 0); }
+}
+
+.input-field.success {
+  border-color: var(--color-accent-alt);
+  animation: success-pulse calc(var(--duration-normal) * var(--animation-scale)) var(--ease-fade);
+}
+
+/* ===== 涟漪点击效果 ===== */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple-effect 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* 涟漪容器 */
+.ripple-container {
+  position: relative;
+  overflow: hidden;
 }
 
 /* ===== 减少动效模式 ===== */
@@ -88,5 +442,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .preview-hint {
+    animation: none;
   }
 }

@@ -41,14 +41,38 @@ async function initApp() {
   ContentInput.init();
   SlidersUI.init();
 
+  // 初始化涟漪效果
+  AnimationsUI.initRippleEffects();
+
+  // 初始化预览提示状态
+  AnimationsUI.updatePreviewHint();
+
   // 绑定生成按钮
   const generateBtn = document.getElementById('generate-btn');
   generateBtn.addEventListener('click', () => {
+    const state = StateModule.getState();
+
+    // 检查是否有姓名
+    if (!state.name) {
+      AnimationsUI.showInputError(
+        document.getElementById('name-input'),
+        '请先输入姓名'
+      );
+      return;
+    }
+
+    // 重绘
     Renderer.redrawAll();
 
-    // 成功反馈
+    // 成功反馈动效
     generateBtn.classList.add('success');
     setTimeout(() => generateBtn.classList.remove('success'), 300);
+
+    // 粒子散开效果
+    AnimationsUI.createParticles(generateBtn, 12);
+
+    // 成功提示更新
+    AnimationsUI.updatePreviewHint();
   });
 
   // 绑定导出按钮
@@ -63,6 +87,9 @@ async function initApp() {
   // 注册状态变更回调
   StateModule.onStateChange((newState, oldState) => {
     Renderer.redrawAll();
+
+    // 更新预览提示
+    AnimationsUI.updatePreviewHint();
 
     // 同步 UI 状态
     if (newState.ageGroup !== oldState.ageGroup) {

@@ -13,21 +13,51 @@ function initContentInput() {
 
   // 姓名输入
   nameInput.addEventListener('input', async () => {
-    const name = nameInput.value;
+    const name = nameInput.value.trim();
+
+    // 清除错误状态
+    AnimationsUI.hideInputError(nameInput);
+
     await preloadNameFont(name);
-    if (nameInput.value === name) {
+
+    if (nameInput.value.trim() === name) {
       StateModule.setState({ name });
+
+      // 输入成功反馈（非空时）
+      if (name) {
+        AnimationsUI.showInputSuccess(nameInput);
+      }
+
+      // 更新预览提示
+      AnimationsUI.updatePreviewHint();
+    }
+  });
+
+  // 姓名输入失焦验证
+  nameInput.addEventListener('blur', () => {
+    const name = nameInput.value.trim();
+    if (!name) {
+      AnimationsUI.showInputError(nameInput, '姓名为必填项');
     }
   });
 
   // 班级输入
   classInput.addEventListener('input', () => {
     StateModule.setState({ className: classInput.value });
+
+    // 成功反馈
+    if (classInput.value) {
+      AnimationsUI.showInputSuccess(classInput);
+    }
   });
 
   // 寄语输入（高中可用）
   mottoInput.addEventListener('input', () => {
     StateModule.setState({ motto: mottoInput.value });
+
+    if (mottoInput.value) {
+      AnimationsUI.showInputSuccess(mottoInput);
+    }
   });
 
   // 照片预留区开关
@@ -65,6 +95,9 @@ function updateContentInputs(state) {
   if (mottoGroup) {
     mottoGroup.style.display = state.ageGroup === 'high' ? 'block' : 'none';
   }
+
+  // 更新预览提示
+  AnimationsUI.updatePreviewHint();
 }
 
 // 导出
