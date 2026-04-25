@@ -43,11 +43,12 @@ function initApp() {
     if (newState.ageGroup !== oldState.ageGroup) {
       AgeSelector.update(newState.ageGroup);
       ThemeSelector.update(newState.theme);
+      DensitySelector.update(newState.density);
     }
-    if (newState.theme !== oldState.theme) {
+    if (newState.theme !== oldState.theme && newState.ageGroup === oldState.ageGroup) {
       ThemeSelector.update(newState.theme);
     }
-    if (newState.density !== oldState.density) {
+    if (newState.density !== oldState.density && newState.ageGroup === oldState.ageGroup) {
       DensitySelector.update(newState.density);
     }
   });
