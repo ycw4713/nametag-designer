@@ -8,15 +8,17 @@
 async function waitForFonts() {
   try {
     await document.fonts.ready;
-    // 确保关键字体已加载
+    // 确保关键字体和常见中文姓名字形已加载
+    const sampleText = '请输入姓名王佳伊张李陈刘杨黄赵吴周徐孙马朱胡郭何高林罗郑梁谢宋唐许邓韩冯曹彭曾萧田董潘袁于蒋蔡余杜叶程魏苏吕丁任沈姚卢姜崔钟谭陆汪范金石廖贾夏韦傅方白邹孟熊秦邱江尹薛闫段雷侯龙史陶黎贺顾毛郝龚邵万钱严覃武戴莫孔向汤';
     const fonts = ['Ma Shan Zheng', 'ZCOOL KuaiLe', 'Noto Sans SC'];
     for (const font of fonts) {
       try {
-        await document.fonts.load(`bold 200px "${font}"`);
+        await document.fonts.load(`bold 200px "${font}"`, sampleText);
       } catch (e) {
         console.warn(`Font ${font} load warning:`, e);
       }
     }
+    await document.fonts.ready;
   } catch (e) {
     console.warn('Font loading warning:', e);
   }

@@ -12,8 +12,12 @@ function initContentInput() {
   const photoCheckbox = document.getElementById('show-photo');
 
   // 姓名输入
-  nameInput.addEventListener('input', () => {
-    StateModule.setState({ name: nameInput.value });
+  nameInput.addEventListener('input', async () => {
+    const name = nameInput.value;
+    await preloadNameFont(name);
+    if (nameInput.value === name) {
+      StateModule.setState({ name });
+    }
   });
 
   // 班级输入
@@ -30,6 +34,21 @@ function initContentInput() {
   photoCheckbox.addEventListener('change', () => {
     StateModule.setState({ showPhoto: photoCheckbox.checked });
   });
+}
+
+/**
+ * 预加载当前姓名的字体字形，避免首帧逐字回退到不同字体
+ */
+async function preloadNameFont(name) {
+  if (!name || !document.fonts) return;
+
+  try {
+    const { fontSize } = StateModule.getState();
+    await document.fonts.load(`bold ${fontSize}px "Ma Shan Zheng"`, name);
+    await document.fonts.ready;
+  } catch (e) {
+    console.warn('Name font loading warning:', e);
+  }
 }
 
 /**
@@ -51,5 +70,6 @@ function updateContentInputs(state) {
 // 导出
 window.ContentInput = {
   init: initContentInput,
+  preloadNameFont,
   update: updateContentInputs
 };
