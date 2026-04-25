@@ -38,6 +38,17 @@
   letter-spacing: 0.5px;
 }
 
+.github-link {
+  position: absolute;
+  right: var(--spacing-xl);
+  color: var(--color-text-secondary);
+  transition: color 0.2s ease;
+}
+
+.github-link:hover {
+  color: var(--color-text);
+}
+
 /* 主内容区 */
 .main-content {
   display: flex;
