@@ -2,16 +2,16 @@
  * js/ui/theme-selector.js - 主题选择器交互
  */
 
-// 主题配置（阶段一只实现动物，其他显示为占位）
+// 主题配置
 const THEMES = [
   { id: 'animals', label: '卡通动物', icon: '🧸', available: true },
-  { id: 'nature', label: '自然植物', icon: '🌿', available: false },
-  { id: 'space', label: '星空宇宙', icon: '🌟', available: false },
-  { id: 'ocean', label: '海洋世界', icon: '🐠', available: false },
-  { id: 'music', label: '音乐艺术', icon: '🎵', available: false },
-  { id: 'geometric', label: '几何科技', icon: '⬡', available: false },
-  { id: 'ink', label: '文艺水墨', icon: '🖌️', available: false },
-  { id: 'minimal', label: '极简线条', icon: '〰', available: false }
+  { id: 'nature', label: '自然植物', icon: '🌿', available: true },
+  { id: 'space', label: '星空宇宙', icon: '🌟', available: true },
+  { id: 'ocean', label: '海洋世界', icon: '🐠', available: true },
+  { id: 'music', label: '音乐艺术', icon: '🎵', available: true },
+  { id: 'geometric', label: '几何科技', icon: '⬡', available: true },
+  { id: 'ink', label: '文艺水墨', icon: '🖌️', available: true },
+  { id: 'minimal', label: '极简线条', icon: '〰', available: true }
 ];
 
 /**

@@ -12,6 +12,7 @@ function initApp() {
   // 初始化 UI 模块
   AgeSelector.init();
   ThemeSelector.init();
+  DensitySelector.init();
   ContentInput.init();
   SlidersUI.init();
 
@@ -45,6 +46,9 @@ function initApp() {
     }
     if (newState.theme !== oldState.theme) {
       ThemeSelector.update(newState.theme);
+    }
+    if (newState.density !== oldState.density) {
+      DensitySelector.update(newState.density);
     }
   });
 

@@ -309,3 +309,47 @@
 .export-btn-icon {
   font-size: 14px;
 }
+
+/* ===== 装饰密度选择器 ===== */
+.density-selector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xs);
+}
+
+.density-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-card);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.density-btn:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-lighter);
+}
+
+.density-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.density-btn-icon {
+  font-size: 14px;
+}
+
+.density-btn-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.density-btn.active .density-btn-text {
+  color: var(--color-primary-dark);
+}

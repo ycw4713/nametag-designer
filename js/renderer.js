@@ -6,7 +6,7 @@
  * 绘制背景
  */
 function renderBackground(ctx, bounds, state) {
-  const colors = AnimalsTheme.getColors();
+  const colors = ThemeManager.getColors(state.theme);
   BaseDraw.drawGradientBackground(ctx, bounds, colors.background);
 }
 
@@ -15,7 +15,7 @@ function renderBackground(ctx, bounds, state) {
  */
 function renderBorder(ctx, bounds, state) {
   const densityConfig = StateModule.getDensityConfig(state.density);
-  const colors = AnimalsTheme.getColors();
+  const colors = ThemeManager.getColors(state.theme);
 
   const padding = 18;
   const radius = 20;
@@ -29,7 +29,7 @@ function renderBorder(ctx, bounds, state) {
 
   if (densityConfig.hasShadow) {
     ctx.save();
-    ctx.shadowColor = '#ff9800';
+    ctx.shadowColor = colors.decorations[0];
     ctx.shadowBlur = 10;
     ctx.shadowOffsetX = 3;
     ctx.shadowOffsetY = 3;
@@ -48,37 +48,16 @@ function renderBorder(ctx, bounds, state) {
  * 绘制装饰
  */
 function renderDecorations(ctx, bounds, state) {
-  const decorations = AnimalsTheme.getDecorations(state.density);
-  const colors = AnimalsTheme.getColors();
+  const decorations = ThemeManager.getDecorations(state.theme, state.density);
+  const colors = ThemeManager.getColors(state.theme);
   const size = Math.min(bounds.width, bounds.height) * 0.04;
 
-  decorations.forEach(dec => {
+  decorations.forEach((dec, index) => {
     const x = bounds.x + bounds.width * dec.x;
     const y = bounds.y + bounds.height * dec.y;
-
-    switch (dec.type) {
-      case 'star':
-        DecorationDraw.drawStar(ctx, x, y, size, colors.decorations[0]);
-        break;
-      case 'heart':
-        DecorationDraw.drawHeart(ctx, x, y, size, colors.decorations[1]);
-        break;
-      case 'cloud':
-        DecorationDraw.drawCloud(ctx, x, y, size * 1.2, colors.decorations[2]);
-        break;
-      case 'bear':
-        DecorationDraw.drawBear(ctx, x, y, size * 1.5, colors.decorations[3]);
-        break;
-      case 'rabbit':
-        DecorationDraw.drawRabbit(ctx, x, y, size * 1.5, colors.decorations[4]);
-        break;
-      case 'cat':
-        DecorationDraw.drawCat(ctx, x, y, size * 1.5, colors.decorations[0]);
-        break;
-      case 'sun':
-        DecorationDraw.drawSun(ctx, x, y, size, colors.decorations[0]);
-        break;
-    }
+    const drawMethod = ThemeManager.getDrawMethod(state.theme, dec.type);
+    const colorIndex = index % colors.decorations.length;
+    drawMethod(ctx, x, y, size, colors.decorations[colorIndex]);
   });
 }
 
