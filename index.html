@@ -48,6 +48,47 @@
           <div class="density-selector"></div>
         </section>
 
+        <!-- 导出 -->
+        <section class="panel-card">
+          <div class="panel-card-header">
+            <span class="panel-card-label panel-card-label--export">导出</span>
+            <span class="panel-card-title">保存或打印</span>
+          </div>
+          <div class="export-buttons">
+            <button class="export-btn export-btn--png" id="export-png">
+              <svg class="export-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span>PNG</span>
+            </button>
+            <button class="export-btn export-btn--pdf" id="export-pdf">
+              <svg class="export-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+              <span>PDF</span>
+            </button>
+          </div>
+        </section>
+      </aside>
+
+      <!-- 中央预览区域 -->
+      <section class="preview-area">
+        <div class="preview-container">
+          <div class="canvas-wrapper">
+            <canvas id="nametag-canvas"></canvas>
+          </div>
+          <p class="preview-hint">输入姓名后自动生成预览</p>
+        </div>
+      </section>
+
+      <!-- 右侧控制面板 -->
+      <aside class="control-panel-right">
         <!-- 内容输入 -->
         <section class="panel-card">
           <div class="panel-card-header">
@@ -108,46 +149,8 @@
             </div>
             <input class="slider-input" type="range" id="class-position-input" min="5" max="95" value="30" step="5">
           </div>
-          </section>
-
-        <!-- 导出 -->
-        <section class="panel-card">
-          <div class="panel-card-header">
-            <span class="panel-card-label panel-card-label--export">导出</span>
-            <span class="panel-card-title">保存或打印</span>
-          </div>
-          <div class="export-buttons">
-            <button class="export-btn export-btn--png" id="export-png">
-              <svg class="export-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
-              </svg>
-              <span>PNG</span>
-            </button>
-            <button class="export-btn export-btn--pdf" id="export-pdf">
-              <svg class="export-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10 9 9 9 8 9"/>
-              </svg>
-              <span>PDF</span>
-            </button>
-          </div>
         </section>
       </aside>
-
-      <!-- 右侧预览区域 -->
-      <section class="preview-area">
-        <div class="preview-container">
-          <div class="canvas-wrapper">
-            <canvas id="nametag-canvas"></canvas>
-          </div>
-          <p class="preview-hint">输入姓名后自动生成预览</p>
-        </div>
-      </section>
     </main>
   </div>
 

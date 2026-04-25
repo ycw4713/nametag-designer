@@ -63,6 +63,21 @@
   gap: var(--spacing-sm);
 }
 
+/* 右侧控制面板 */
+.control-panel-right {
+  width: var(--panel-width);
+  flex-shrink: 0;
+  background: var(--color-bg-panel);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
 /* 右侧预览区域 */
 .preview-area {
   flex: 1;
