@@ -1,6 +1,6 @@
 # 姓名牌生成器
 
-一个纯前端的幼儿手绘姓名牌生成工具，帮助幼儿园老师为孩子们快速制作精美的手绘风格姓名牌。
+一个纯前端的手绘姓名牌生成工具，帮助家长、老师为孩子们快速制作精美的手绘风格姓名牌。
 
 ## 预览
 
@@ -56,46 +56,6 @@
 | Canvas API | 姓名、装饰绘制 |
 | jsPDF | PDF 文件导出 |
 | Google Fonts | 开源中文字体 |
-
-## 项目结构
-
-```
-nametag-designer/
-├── index.html           # 主页面
-├── css/
-│   ├── variables.css    # CSS 变量定义
-│   ├── base.css         # 基础样式
-│   ├── layout.css       # 布局样式
-│   ├── components.css   # 组件样式
-│   └── animations.css   # 动画效果
-├── js/
-│   ├── app.js           # 主入口、初始化
-│   ├── state.js         # 状态管理
-│   ├── canvas.js        # Canvas 设置
-│   ├── renderer.js      # 绘制流程
-│   ├── export.js        # 导出功能
-│   ├── styles/          # 基础绘制样式
-│   │   ├── base.js      # 基础绘制方法
-│   │   └── decorations.js # 装饰绘制方法
-│   ├── themes/          # 主题模块
-│   │   ├── index.js     # 主题注册表
-│   │   ├── animals.js   # 可爱动物主题
-│   │   ├── nature.js    # 自然风格主题
-│   │   ├── space.js     # 太空主题
-│   │   ├── ocean.js     # 海洋主题
-│   │   ├── music.js     # 音乐主题
-│   │   ├── geometric.js # 几何风格
-│   │   ├── ink.js       # 水墨风格
-│   │   └── minimal.js   # 简约风格
-│   └── ui/              # UI 组件
-│       ├── age-selector.js      # 年龄段选择
-│       ├── theme-selector.js    # 主题选择
-│       ├── density-selector.js  # 装饰密度选择
-│       ├── content-input.js     # 内容输入
-│       ├── sliders.js           # 滑块控件
-│       └── animations.js        # UI 动画
-└── tests/               # 测试文件
-```
 
 ## 使用场景
 
