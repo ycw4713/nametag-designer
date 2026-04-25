@@ -3,9 +3,32 @@
  */
 
 /**
+ * 等待字体加载完成
+ */
+async function waitForFonts() {
+  try {
+    await document.fonts.ready;
+    // 确保关键字体已加载
+    const fonts = ['Ma Shan Zheng', 'ZCOOL KuaiLe', 'Noto Sans SC'];
+    for (const font of fonts) {
+      try {
+        await document.fonts.load(`bold 200px "${font}"`);
+      } catch (e) {
+        console.warn(`Font ${font} load warning:`, e);
+      }
+    }
+  } catch (e) {
+    console.warn('Font loading warning:', e);
+  }
+}
+
+/**
  * 初始化应用
  */
-function initApp() {
+async function initApp() {
+  // 等待字体加载
+  await waitForFonts();
+
   // 初始化 Canvas
   CanvasModule.init();
 
