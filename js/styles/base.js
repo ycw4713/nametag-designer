@@ -28,7 +28,22 @@ function drawName(ctx, bounds, name, fontSize, namePosition, fontFamily = 'Ma Sh
     ctx.strokeStyle = '#333333';
     ctx.lineWidth = 1.5;
     ctx.lineJoin = 'round';
-    ctx.strokeText(name, centerX, centerY);
+
+    // 逐字绘制，确保字体一致性
+    const chars = name.split('');
+    const charSpacing = fontSize * 0.9;
+    const startX = centerX - (chars.length - 1) * charSpacing / 2;
+
+    chars.forEach((char, i) => {
+      const charX = startX + i * charSpacing;
+      // 先清除该字符区域，避免重叠
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(charX - fontSize / 2, centerY - fontSize / 2, fontSize, fontSize);
+      ctx.clip();
+      ctx.strokeText(char, charX, centerY);
+      ctx.restore();
+    });
   }
 }
 
@@ -49,7 +64,16 @@ function drawClass(ctx, bounds, className, fontSize, namePosition, fontFamily = 
   ctx.strokeStyle = '#333333';
   ctx.lineWidth = 1.5;
   ctx.lineJoin = 'round';
-  ctx.strokeText(className, centerX, centerY);
+
+  // 逐字绘制，确保字体一致性
+  const chars = className.split('');
+  const charSpacing = fontSize * 0.85;
+  const startX = centerX - (chars.length - 1) * charSpacing / 2;
+
+  chars.forEach((char, i) => {
+    const charX = startX + i * charSpacing;
+    ctx.strokeText(char, charX, centerY);
+  });
 }
 
 /**
